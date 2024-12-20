@@ -1,4 +1,4 @@
-# QuestionGeneration
+# QuestionGeneration by Sai Arun Mendu and Harish Kumar Kummara
 
 This project demonstrates AI-driven workflow for summarizing lecture content, generating questions, and providing a basic grading mechanism. It uses NLP models (summarization, question generation) integrated into a Flask web application.
 
