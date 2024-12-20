@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <title>Summary and Question Generator by Sai Arun Mendu and Harish Kumar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        img {
+            max-width: 600px;
+            height: auto;
+            display: block;
+            margin: 0 auto 20px;
+        }
+        form {
+            margin: 20px 0;
+        }
+        .spinner {
+            margin: 50px auto;
+            width: 50px;
+            height: 50px;
+            position: relative;
+            text-align: center;
+            animation: rotate 2.0s infinite linear;
+        }
+        .dot1, .dot2 {
+            width: 60%;
+            height: 60%;
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            background-color: #333;
+            border-radius: 100%;
+            animation: bounce 2.0s infinite ease-in-out;
+        }
+        .dot2 {
+            top: auto;
+            bottom: 0;
+            animation-delay: -1.0s;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+        @keyframes bounce {
+            0%, 100% { transform: scale(0.0); }
+            50% { transform: scale(1.0); }
+        }
+        .footer-text {
+            margin-top: 60px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+    <script>
+        function showProcessingMessage() {
+            document.getElementById('uploadForm').style.display = 'none';
+            document.getElementById('processingMessage').style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+          <li><strong>{{ message }}</strong></li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <img src="{{ url_for('static', filename='image.png') }}" alt="Constructor University Logo">
+
+    <form method="post" enctype="multipart/form-data" id="uploadForm" onsubmit="showProcessingMessage()">
+      <input type="file" name="file" required><br><br>
+      <input type="submit" value="Upload">
+    </form>
+
+    <div id="processingMessage" style="display:none;">
+        <p>Your file has been received. Processing is in progress...</p>
+        <div class="spinner">
+            <div class="dot1"></div>
+            <div class="dot2"></div>
+        </div>
+    </div>
+
+    <div class="footer-text">
+        Summary and Question Generator by Sai Arun Mendu and Harish Kumar
+    </div>
+</body>
+</html>

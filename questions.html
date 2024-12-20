@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <title>Questions</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .question-block { margin-bottom: 30px; }
+        textarea {
+            width: 80%;
+            height: 80px;
+        }
+        .grade-btn {
+            display: inline-block;
+            padding: 5px 15px;
+            margin-top: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #2196F3;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+        .grade-btn:hover {
+            background-color: #1976D2;
+        }
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Questions</h1>
+    <p>Answer each question and click "Grade Answer" to get feedback.</p>
+
+    {% if not questions %}
+      <p>No questions generated.</p>
+    {% else %}
+      {% for question in questions %}
+      <div class="question-block">
+          <h3>Question {{ loop.index }}:</h3>
+          <p>{{ question }}</p>
+          <form method="post" action="{{ url_for('grade_single', question_id=loop.index0) }}">
+              <textarea name="answer" placeholder="Your answer"></textarea><br>
+              <input type="submit" value="Grade Answer" class="grade-btn">
+          </form>
+          {% set feedback_key = 'feedback_' ~ loop.index0 %}
+          {% if session[feedback_key] is defined %}
+          <div class="feedback">{{ session[feedback_key] }}</div>
+          {% endif %}
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    <a href="{{ url_for('upload_and_process') }}" class="grade-btn" style="background-color: #4CAF50;">Upload Another File</a>
+</body>
+</html>

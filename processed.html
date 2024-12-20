@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <title>Processed Lecture</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Original Text</h1>
+    {% if original_text.strip() %}
+    <pre>{{ original_text }}</pre>
+    {% else %}
+    <p>No extractable text found.</p>
+    {% endif %}
+
+    <h1>Summary</h1>
+    {% if summary %}
+    <p>{{ summary }}</p>
+    {% else %}
+    <p>No summary generated.</p>
+    {% endif %}
+
+    <h1>Extracted Links</h1>
+    {% if links %}
+    <ul>
+    {% for link in links %}
+      <li><a href="{{ link }}">{{ link }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No links found.</p>
+    {% endif %}
+
+    <div class="buttons">
+      <a href="{{ url_for('upload_and_process') }}" class="button">Upload Another File</a>
+      <a href="{{ url_for('display_questions') }}" class="button">Go to Questions</a>
+    </div>
+</body>
+</html>
